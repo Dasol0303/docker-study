@@ -11,7 +11,7 @@ docker volume ls
 # 볼륨 옵션 설정
 # 환경변수 옵션 설정
 docker run --name pgdb \
-        -v pg-strorage:/var/lib/postgresql/data \
+        -v pg-storage:/var/lib/postgresql/data \
         -e POSTGRES_PASSWORD=pgpw postgres
 # 포그라운드로 실행한 상태
 
@@ -20,7 +20,7 @@ docker run --name pgdb \
 docker rm -f pgdb
 
 docker run --name pgdb -d \
-        -v pg-strorage:/var/lib/postgresql/data \
+        -v pg-storage:/var/lib/postgresql/data \
         -e POSTGRES_PASSWORD=pgpw \
         -e POSTGRES_USER=postgres \
         -e POSTGRES_DB=mypgdb \

@@ -7,6 +7,7 @@ docker pull doctorkirk/oracle-19c
 
 # 볼륨 생성
 docker volume create oracle19c-oradata
+docker volume ls
 
 # docker run doctorkirk/oracle-19c
 
@@ -30,7 +31,15 @@ docker run -d --name oracle19c \
     doctorkirk/oracle-19c
 
 # docker run -d --name oracle19c -p 1522:1521 -v oracle19c-oradata:/opt/oracle/oradata -e ORACLE_SID=orcl -e ORACLE_PWD=1234 -e ORACLE_CHARACTERSET=AL32UTF8 doctorkirk/oracle-19c
-docker run -d --name oracle19c -p 1522:1521 -v oracle19c-oradata:/opt/oracle/oradata -e ORACLE_SID=orcl -e ORACLE_PWD=1234 -e ORACLE_CHARATERSET=AL32UTF8 doctorkirk/oracle-19c
+docker run -d --name oracle19c -p 1522:1521 \
+-v oracle19c-oradata:/opt/oracle/oradata \
+-e ORACLE_SID=orcl \
+-e ORACLE_PWD=1234 \
+-e ORACLE_CHARACTERSET=AL32UTF8 \
+doctorkirk/oracle-19c
+
+docker run -d --name oracle19c -p 1522:1521 -v d:/Study/docker-study/sample/oracledb/oradata:/opt/oracle/oradata -e ORACLE_SID=orcl -e ORACLE_PWD=1234 -e ORACLE_CHARACTERSET=AL32UTF8 doctorkirk/oracle-19c
+
 docker ps
 
 # local pc 에 다른 oracle db 가 설치되어 있지 않으면?
@@ -48,7 +57,7 @@ docker exec -it oracle19c bash
 
 # 컨테이너 내부 bash 에서 명령어
 # db 접근
-sqlplus /as sysdba
+sqlplus / as sysdba
 ALTER SYSTEM DISABLE RESTRICTED SESSION;    # 컨테이너로 생성된 DB는 기본으로 세션 연결 제한
 
 # 계정 생성 및 접근 권한 부여

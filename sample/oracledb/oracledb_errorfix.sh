@@ -25,7 +25,7 @@ cd /opt/oracle/admin/ORCL/pfile
 cp init.ora /opt/oracle/product/19c/dbhome_1/dbs/initorcl.ora
 
 # 경로로 이동하지 않고, 전체경로로 입력 (full path)
-cp /opt/oracle/admin/ORCL/pfileinit.ora /opt/oracle/product/19c/dbhome_1/dbs/initorcl.ora
+cp /opt/oracle/admin/ORCL/pfile/init.ora /opt/oracle/product/19c/dbhome_1/dbs/initorcl.ora
 
 # 복사한 설정파일 존재 확인
 cd /opt/oracle/product/19c/dbhome_1/dbs
@@ -36,11 +36,14 @@ sqlplus / as sysdba
 SHUTDOWN ABORT;  # 강제종료
 
 # 실행
-STARTUP NOWMOUNT;
+STARTUP NOMOUNT;
 ALTER DATABASE MOUNT;
 ALTER DATABASE OPEN;
 
-
+ps -ef | grep ora_ | grep -v grep | awk '{print $2}' | xargs kill -9
+ps -ef | grep oracleORCL | grep -v grep | awk '{print $2}' | xargs kill -9
+cd /opt/oracle/diag/rdbms/orcl/orcl/trace
+cat /opt/oracle/diag/rdbms/orcl/orcl/trace/alert_orcl.log
 
 #---------------------
 # 계정으로 접속 시도시, 계정이 잠겼다는 메시지 발생하는 경우 (LOCK)
@@ -63,6 +66,8 @@ lsnrctl start
 
 # 리스너 상태확인
 lsnrctl status
+
+ps -ef | grep ora_ | grep -v grep | awk '{print $2}' | xargs kill -9
 
 # ------ 리스너 설정파일
 /opt/oracle/oradata/
